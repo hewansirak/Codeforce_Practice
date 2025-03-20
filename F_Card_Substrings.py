@@ -1,23 +1,20 @@
 def solve():
     n, m = map(int, input().split())
     s = input()
-    cards = sorted(list(input()))
+    cards = input()
+    
+    cards_count = Counter(cards)
+    s_count = Counter()
+    left = 0
+    ans = 0
 
-    def check(substring, cards_available):
-        cards_copy = cards_available[:]
-        for char in substring:
-            if char in cards_copy:
-                cards_copy.remove(char)
-            else:
-                return False
-        return True
-
-    count = 0
-    for i in range(n):
-        for j in range(i, n):
-            substring = s[i:j+1]
-            if check(substring, cards):
-                count += 1
-    print(count)
+    for right in range(n):
+        s_count[s[right]] += 1
+        while s_count[s[right]] > cards_count[s[right]]:
+            s_count[s[left]] -= 1
+            left += 1
+        ans += (right - left + 1)
+    
+    print(ans)
 
 solve()
