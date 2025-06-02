@@ -1,21 +1,22 @@
-import math
 import sys
+import math
 
 input = sys.stdin.readline
 
 def solve():
-
+    
     n = int(input())
-    total_squares = sum(map(int, input().split()))
-    sqrt_total = math.sqrt(total_squares)
-    root_rounded = round(sqrt_total)
-
-    if root_rounded * root_rounded == total_squares:
+    total_square = sum(map(int, input().split())) # 8 16
+    square_sqrt = math.sqrt(total_square) # 2.6 4
+    sqrt_round = round(square_sqrt) # 2 4
+    
+    if sqrt_round * sqrt_round == total_square:
         print("YES")
     else:
-        print("NO")
-
+        print("NO")    
+        
 t = int(input())
 
-for _ in range(t):
+for _ in range (t):
     solve()
+    
