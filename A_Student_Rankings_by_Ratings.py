@@ -1,12 +1,14 @@
 n = int(input())
-a = list(map(int, input().split()))
+rating = list(map(int, input().split()))
 
-r = []
-for x in a:
-    c = 0
-    for y in a:
-        if y > x:
-            c += 1
-    r.append(c + 1)
+rank = []
 
-print(*r)
+for i in rating:
+    count = 0
+    for j in rating:
+        if j > i:
+            count += 1
+    rank.append(count + 1)
+    
+print(*rank)
+
