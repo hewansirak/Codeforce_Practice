@@ -1,41 +1,35 @@
 import sys
-from collections import deque 
+input = sys.stdin.readline
 
-def solve():
-    n, m = map(int, sys.stdin.readline().split())
-    grid = []
-    for _ in range(n):
-        grid.append(list(map(int, sys.stdin.readline().split())))
+t = int(input())
+directions = [(1,0), (-1,0), (0,1), (0,-1)]
 
-    visited = [[False for _ in range(m)] for _ in range(n)]
-    max_volume = 0
-
-    dr = [-1, 1, 0, 0]
-    dc = [0, 0, -1, 1]
-
-    for r in range(n):
-        for c in range(m):
-            if grid[r][c] > 0 and not visited[r][c]:
-                current_lake_volume = 0
-                q = deque([(r, c)])
-                visited[r][c] = True
-
-                while q:
-                    curr_r, curr_c = q.popleft()
-                    current_lake_volume += grid[curr_r][curr_c]
-
-                    for i in range(4):
-                        next_r, next_c = curr_r + dr[i], curr_c + dc[i]
-
-                        if 0 <= next_r < n and 0 <= next_c < m:
-                            if grid[next_r][next_c] > 0 and not visited[next_r][next_c]:
-                                visited[next_r][next_c] = True
-                                q.append((next_r, next_c))
-                
-                max_volume = max(max_volume, current_lake_volume)
+for _ in range(t):
+    n, m = map(int, input().split())
+    grid = [list(map(int, input().split())) for _ in range(n)]
+    visited = [[False]*m for _ in range(n)]
     
-    sys.stdout.write(str(max_volume) + "\n")
-
-num_test_cases = int(sys.stdin.readline())
-for _ in range(num_test_cases):
-    solve()
+    max_volume = 0
+    
+    for i in range(n):
+        for j in range(m):
+            if grid[i][j] > 0 and not visited[i][j]:
+                stack = [(i,j)]
+                volume = 0
+                visited[i][j] = True
+                
+                while stack:
+                    x, y = stack.pop()
+                    volume += grid[x][y]
+                    
+                    for dx, dy in directions:
+                        nx, ny = x + dx, y + dy
+                        if 0 <= nx < n and 0 <= ny < m:
+                            if grid[nx][ny] > 0 and not visited[nx][ny]:
+                                visited[nx][ny] = True
+                                stack.append((nx, ny))
+                
+                if volume > max_volume:
+                    max_volume = volume
+    
+    print(max_volume)
