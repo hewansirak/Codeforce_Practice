@@ -1,19 +1,13 @@
-import sys
+s = input()
+n = len(s)
 
-s = sys.stdin.readline().strip()
-level = 0
-min_level = 0
+strict_alternating = True
+for i in range(n - 1):
+    if s[i] == s[i + 1]: 
+        strict_alternating = False
+        break
 
-for char in s:
-    if char == '+':
-        level += 1
-    elif char == '-':
-        level -= 1
-
-    min_level = min(min_level, level)
-
-if level == min_level:
-    sys.stdout.write("No\n")
+if strict_alternating:
+    print("No")
 else:
-    sys.stdout.write("Yes\n")
-
+    print("Yes")
