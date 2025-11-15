@@ -7,6 +7,8 @@ def solve():
     max_ratio = 0
     count = 0
 
+
+
     for i in range(n):
         for j in range(m):
             if b[j] % a[i] == 0:
